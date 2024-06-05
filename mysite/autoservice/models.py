@@ -58,8 +58,13 @@ class OrderLine(models.Model):
     service = models.ForeignKey(to="Service", verbose_name="Service", on_delete=models.SET_NULL, null=True, blank=True)
     qty = models.IntegerField(verbose_name="Quantity")
 
+    def price(self):
+        return self.service.price * self.qty
+
+    price.short_description = "Price"
+
     def __str__(self):
-        return f"{self.service} - {self.qty} ({self.order})"
+        return f"{self.service} * {self.qty} = {self.price()} ({self.order})"
 
     class Meta:
         verbose_name = "Order Line"
