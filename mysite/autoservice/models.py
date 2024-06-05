@@ -46,15 +46,23 @@ class Order(models.Model):
     car = models.ForeignKey(to="Car", verbose_name="Car", on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.car}, {self.date}"
+        return f"{self.car}, {self.date}: {self.total()}"
+
+    def total(self):
+        result = 0
+        for line in self.lines.all():
+            result += line.price()
+        return result
+
 
     class Meta:
         verbose_name = "Order"
         verbose_name_plural = "Orders"
 
 
+
 class OrderLine(models.Model):
-    order = models.ForeignKey(to="Order", verbose_name="Order", on_delete=models.CASCADE)
+    order = models.ForeignKey(to="Order", verbose_name="Order", on_delete=models.CASCADE, related_name='lines')
     service = models.ForeignKey(to="Service", verbose_name="Service", on_delete=models.SET_NULL, null=True, blank=True)
     qty = models.IntegerField(verbose_name="Quantity")
 
