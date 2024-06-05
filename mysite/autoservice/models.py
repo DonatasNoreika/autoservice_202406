@@ -9,6 +9,10 @@ class Service(models.Model):
     def __str__(self):
         return f"{self.name} ({self.price})"
 
+    class Meta:
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
+
 
 class CarModel(models.Model):
     make = models.CharField(verbose_name="Make", max_length=50)
@@ -16,6 +20,10 @@ class CarModel(models.Model):
 
     def __str__(self):
         return f"{self.make} {self.model}"
+
+    class Meta:
+        verbose_name = "Car Model"
+        verbose_name_plural = "Car Models"
 
 
 class Car(models.Model):
@@ -28,6 +36,10 @@ class Car(models.Model):
     def __str__(self):
         return f"{self.license_plate} ({self.car_model})"
 
+    class Meta:
+        verbose_name = "Car"
+        verbose_name_plural = "Cars"
+
 
 class Order(models.Model):
     date = models.DateTimeField(verbose_name="Date", auto_now_add=True)
@@ -35,6 +47,10 @@ class Order(models.Model):
 
     def __str__(self):
         return f"{self.car}, {self.date}"
+
+    class Meta:
+        verbose_name = "Order"
+        verbose_name_plural = "Orders"
 
 
 class OrderLine(models.Model):
@@ -44,3 +60,7 @@ class OrderLine(models.Model):
 
     def __str__(self):
         return f"{self.service} - {self.qty} ({self.order})"
+
+    class Meta:
+        verbose_name = "Order Line"
+        verbose_name_plural = "Order Lines"
