@@ -45,6 +45,15 @@ class Order(models.Model):
     date = models.DateTimeField(verbose_name="Date", auto_now_add=True)
     car = models.ForeignKey(to="Car", verbose_name="Car", on_delete=models.CASCADE)
 
+    CHOICES = (
+        ("k", 'Confirmed'),
+        ("c", "Cancelled"),
+        ("i", "In progress"),
+        ("d", "Done"),
+    )
+
+    status = models.CharField(verbose_name="Status", max_length=1, default="k", choices=CHOICES)
+
     def __str__(self):
         return f"{self.car}, {self.date}: {self.total()}"
 
@@ -54,11 +63,9 @@ class Order(models.Model):
             result += line.price()
         return result
 
-
     class Meta:
         verbose_name = "Order"
         verbose_name_plural = "Orders"
-
 
 
 class OrderLine(models.Model):
