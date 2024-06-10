@@ -17,8 +17,12 @@ def index(request):
 
 
 def cars(request):
-    cars = Car.objects.all()
+    return render(request, template_name="cars.html", context={"cars": Car.objects.all()})
+
+
+def car(request, car_id):
+    car = Car.objects.get(pk=car_id)
     context = {
-        "cars": cars,
+        'car': car,
     }
-    return render(request, template_name="cars.html", context=context)
+    return render(request, "car.html", context=context)

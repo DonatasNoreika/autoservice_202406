@@ -6,6 +6,6 @@
 
 {% block "content" %}
 {% for car in cars %}
-<p>{{ car }}</p>
+<p><a href="{% url 'car' car.pk %}">{{ car }}</a></p>
 {% endfor %}
 {% endblock %}
