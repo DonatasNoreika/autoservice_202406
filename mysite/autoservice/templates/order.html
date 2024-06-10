@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block "title" %}Order{% endblock %}
+
+{% block "title2" %}Order{% endblock %}
+
+{% block "content" %}
+
+<p><strong>Car: </strong>{{ order.car }}</p>
+<p><strong>Date: </strong>{{ order.date }}</p>
+<p><strong>Status: </strong>{{ order.get_status_display }}</p>
+  <h2>Lines</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for line in order.lines.all %}
+      <tr>
+        <td>{{ line.service.name }}</td>
+        <td>{{ line.service.price }}</td>
+        <td>{{ line.qty }}</td>
+        <td>{{ line.price }}</td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="3"></td>
+      <td><strong>{{ order.total }}</strong></td>
+    </tr>
+    </tbody>
+  </table>
+{% endblock %}
