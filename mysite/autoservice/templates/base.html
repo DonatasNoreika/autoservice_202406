@@ -8,7 +8,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
     {% load static %}
-    <!--  <link rel="stylesheet" href="{% static 'css/styles.css' %}">-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <!-- Favicons -->
     <link href='{% static "assets/img/favicon.png" %}' rel="icon">
     <link href='{% static "assets/img/apple-touch-icon.png" %}' rel="apple-touch-icon">
@@ -91,12 +91,11 @@
         <div class="row gy-4">
 
             <div class="col-lg-4 col-md-12 footer-newsletter">
-                <form action="forms/newsletter.php" method="post" class="php-email-form">
-                    <div class="newsletter-form"><input type="email" name="email"><input type="submit"
-                                                                                         value="Search"></div>
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                <form action="{% url 'search' %}" method="get">
+                    <div class="newsletter-form">
+                        <input class="my-input" type="text" name="query">
+                        <input class="my-submit" type="submit" value="Search">
+                    </div>
                 </form>
             </div>
 

@@ -1,0 +1,40 @@
+.my-input {
+  border: 0;
+  padding: 4px 10px;
+  width: 100%;
+  background-color: var(--contrsast-color);
+  color: var(--default-color);
+}
+
+.my-submit {
+  border: 0;
+  font-size: 16px;
+  padding: 0 20px;
+  margin: -7px -9px -7px 0;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+.my-submit {
+  border: 0;
+  font-size: 16px;
+  padding: 0 20px;
+  margin: -7px -9px -7px 0;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  transition: 0.3s;
+  border-radius: 50px;
+
+  color: var(--contrast-color);
+  background: var(--accent-color);
+  border: 0;
+  padding: 10px 30px;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.my-submit:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
