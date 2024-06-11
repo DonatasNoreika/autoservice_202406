@@ -34,6 +34,7 @@ class OrderListView(ListView):
     model = Order
     template_name = "orders.html"
     context_object_name = "orders"
+    paginate_by = 5
 
 
 class OrderDetailView(DetailView):
