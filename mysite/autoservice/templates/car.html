@@ -5,7 +5,9 @@
 {% block "title2" %}Car {{ car.car_model }}{% endblock %}
 
 {% block "content" %}
-
+{% if car.photo %}
+<img class="card-img-top" style="width:60%" src="{{ car.photo.url }}" >
+{% endif %}
 <p><strong>Client: </strong>{{ car.client_name }}</p>
 <p><strong>VIN code: </strong>{{ car.vin_code }}</p>
 <p><strong>License Plate: </strong>{{ car.license_plate }}</p>

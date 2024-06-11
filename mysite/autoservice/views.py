@@ -21,7 +21,7 @@ def index(request):
 
 def cars(request):
     cars = Car.objects.all()
-    paginator = Paginator(cars, per_page=6)
+    paginator = Paginator(cars, per_page=9)
     page_number = request.GET.get("page")
     paged_cars = paginator.get_page(page_number)
     return render(request, template_name="cars.html", context={"cars": paged_cars})
