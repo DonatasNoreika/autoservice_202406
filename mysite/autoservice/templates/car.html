@@ -11,6 +11,7 @@
 <p><strong>Client: </strong>{{ car.client_name }}</p>
 <p><strong>VIN code: </strong>{{ car.vin_code }}</p>
 <p><strong>License Plate: </strong>{{ car.license_plate }}</p>
+<p>{{ car.description|safe }}</p>
 <h3>Orders:</h3>
 {% for order in car.orders.all %}
 <p><a href="{% url 'order' order.pk %}">{{ order }}</a></p>
