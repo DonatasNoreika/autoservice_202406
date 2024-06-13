@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+from datetime import datetime, timedelta
 
 # Create your models here.
 class Service(models.Model):
@@ -34,6 +35,7 @@ class Car(models.Model):
                                   blank=True)
     photo = models.ImageField(verbose_name="Photo", upload_to="cars", blank=True)
 
+
     def __str__(self):
         return f"{self.license_plate} ({self.car_model})"
 
@@ -45,6 +47,8 @@ class Car(models.Model):
 class Order(models.Model):
     date = models.DateTimeField(verbose_name="Date", auto_now_add=True)
     car = models.ForeignKey(to="Car", verbose_name="Car", on_delete=models.CASCADE, related_name="orders")
+    client = models.ForeignKey(to=User, verbose_name="Client", on_delete=models.SET_NULL, null=True, blank=True)
+    deadline = models.DateTimeField(verbose_name="Deadline", default=(datetime.today() + timedelta(days=10)))
 
     CHOICES = (
         ("k", 'Confirmed'),
