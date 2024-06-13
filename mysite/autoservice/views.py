@@ -4,6 +4,7 @@ from django.views.generic import (ListView,
                                   DetailView)
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -60,3 +61,13 @@ def search(request):
         "query": query,
     }
     return render(request, template_name='search.html', context=context)
+
+
+class UserOrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = "user_orders.html"
+    context_object_name = "orders"
+
+    def get_queryset(self):
+        return Order.objects.filter(client=self.request.user)
+

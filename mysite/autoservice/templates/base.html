@@ -62,6 +62,7 @@
                 <li><a href="{% url 'orders' %}">Orders</a></li>
                 <li>
                     {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_orders' %}">My Orders</a></li>
                     <a class="d-flex justify-content-start">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-person-bounding-box" viewBox="0 0 16 16">
