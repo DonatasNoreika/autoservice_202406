@@ -50,6 +50,9 @@ class Order(models.Model):
     client = models.ForeignKey(to=User, verbose_name="Client", on_delete=models.SET_NULL, null=True, blank=True)
     deadline = models.DateTimeField(verbose_name="Deadline", default=(datetime.today() + timedelta(days=10)))
 
+    def is_overdue(self):
+        return self.deadline < datetime.today()
+
     CHOICES = (
         ("k", 'Confirmed'),
         ("c", "Cancelled"),
