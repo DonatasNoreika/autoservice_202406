@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("autoservice/", include("autoservice.urls")),
     path('', RedirectView.as_view(url='autoservice/', permanent=True)),
+    path('tinymce/', include('tinymce.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 
 ] + (static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +

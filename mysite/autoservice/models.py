@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
+from tinymce.models import HTMLField
 
 # Create your models here.
 class Service(models.Model):
@@ -34,6 +35,7 @@ class Car(models.Model):
     car_model = models.ForeignKey(to="CarModel", verbose_name="Car Model", on_delete=models.SET_NULL, null=True,
                                   blank=True)
     photo = models.ImageField(verbose_name="Photo", upload_to="cars", blank=True)
+    description = HTMLField(verbose_name="Description", default="")
 
 
     def __str__(self):
