@@ -3,7 +3,8 @@ from .models import (Car,
                      CarModel,
                      Service,
                      Order,
-                     OrderLine)
+                     OrderLine,
+                     OrderComment)
 
 
 class ServiceAdmin(admin.ModelAdmin):
@@ -22,9 +23,14 @@ class OrderLineInLine(admin.TabularInline):
     fields = ['service', 'qty']
 
 
+class OrderCommentInLine(admin.TabularInline):
+    model = OrderComment
+    extra = 0
+
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['car', 'client', 'date', 'deadline', 'total', 'status', 'is_overdue']
-    inlines = [OrderLineInLine]
+    inlines = [OrderLineInLine, OrderCommentInLine]
     list_editable = ['deadline', 'client', 'status']
 
 
@@ -38,3 +44,4 @@ admin.site.register(CarModel)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderLine, OrderLineAdmin)
+

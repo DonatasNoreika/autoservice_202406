@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from tinymce.models import HTMLField
 
+
 # Create your models here.
 class Service(models.Model):
     name = models.CharField(verbose_name="Name", max_length=100)
@@ -36,7 +37,6 @@ class Car(models.Model):
                                   blank=True)
     photo = models.ImageField(verbose_name="Photo", upload_to="cars", blank=True)
     description = HTMLField(verbose_name="Description", default="")
-
 
     def __str__(self):
         return f"{self.license_plate} ({self.car_model})"
@@ -94,3 +94,16 @@ class OrderLine(models.Model):
     class Meta:
         verbose_name = "Order Line"
         verbose_name_plural = "Order Lines"
+
+
+class OrderComment(models.Model):
+    author = models.ForeignKey(to=User, verbose_name="Author", on_delete=models.CASCADE)
+    order = models.ForeignKey(to="Order", verbose_name="Order", on_delete=models.CASCADE, related_name="comments")
+    content = models.TextField(verbose_name="Content", max_length=1000)
+    date_created = models.DateTimeField(verbose_name="Date", auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.content} ({self.author})"
+
+    class Meta:
+        ordering = ["-date_created"]
