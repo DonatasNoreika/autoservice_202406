@@ -36,9 +36,24 @@
     </tbody>
   </table>
   <h3>Comments</h3>
+{% if user.is_authenticated %}
+<div class="fieldWrapper">
+    <hr><br/>
+    <h1>Leave a comment</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.content }}<br/>
+        <input type="submit" value="Post">
+    </form>
+</div>
+{% endif %}
+{% if order.comments.all %}
 {% for comment in order.comments.all %}
 <strong>{{ comment.author }}</strong>, <em>{{ comment.date_created }}</em>
 <p>{{ comment.content }}</p>
 <hr>
 {% endfor %}
+{% else %}
+<p>No comments</p>
+{% endif %}
 {% endblock %}
