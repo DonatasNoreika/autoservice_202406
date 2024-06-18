@@ -10,6 +10,7 @@
 <p><strong>Date: </strong>{{ order.date }}</p>
 <p><strong>Deadline: </strong>{{ order.deadline }}</p>
 <p><strong>Status: </strong>{{ order.get_status_display }}</p>
+<p><strong>Client: </strong><img class="rounded-circle account-img me-1" style="height: 25px" src="{{ order.client.profile.photo.url }}">{{ order.client.username }}<br/></p>
   <h3>Lines</h3>
   <table class="table table-hover">
     <thead>
