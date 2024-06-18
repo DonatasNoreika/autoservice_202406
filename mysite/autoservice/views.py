@@ -142,15 +142,15 @@ def profile(request):
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         new_email = request.POST['email']
         if new_email == "":
-            messages.error(request, f'El. paštas negali būti tuščias!')
+            messages.error(request, f'Email field cannot be empty!')
             return redirect('profile')
         if request.user.email != new_email and User.objects.filter(email=new_email).exists():
-            messages.error(request, f'Vartotojas su el. paštu {new_email} jau užregistruotas!')
+            messages.error(request, f'Email {new_email} already registered!')
             return redirect('profile')
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, f"Profilis atnaujintas")
+            messages.success(request, f"Profile updated")
             return redirect('profile')
 
 
