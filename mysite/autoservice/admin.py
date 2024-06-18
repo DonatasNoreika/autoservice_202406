@@ -4,7 +4,8 @@ from .models import (Car,
                      Service,
                      Order,
                      OrderLine,
-                     OrderComment)
+                     OrderComment,
+                     Profile)
 
 
 class ServiceAdmin(admin.ModelAdmin):
@@ -44,4 +45,5 @@ admin.site.register(CarModel)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderLine, OrderLineAdmin)
+admin.site.register(Profile)
 

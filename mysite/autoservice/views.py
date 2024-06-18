@@ -11,7 +11,7 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.forms import User
 from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -133,3 +133,8 @@ def register(request):
             messages.error(request, 'Passwords does not match!')
             return redirect('register')
     return render(request, 'registration/register.html')
+
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')

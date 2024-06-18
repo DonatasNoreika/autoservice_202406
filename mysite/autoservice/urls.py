@@ -7,7 +7,8 @@ from .views import (index,
                     OrderListView,
                     OrderDetailView,
                     UserOrderListView,
-                    register)
+                    register,
+                    profile)
 
 urlpatterns = [
     path("", index, name="index"),
@@ -18,4 +19,5 @@ urlpatterns = [
     path('search/', search, name="search"),
     path("userorders/", UserOrderListView.as_view(), name="user_orders"),
     path('register/', register, name='register'),
+    path('profile/', profile, name='profile'),
 ]
