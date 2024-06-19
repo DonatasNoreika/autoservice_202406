@@ -11,6 +11,11 @@
 <p><strong>Deadline: </strong>{{ order.deadline }}</p>
 <p><strong>Status: </strong>{{ order.get_status_display }}</p>
 <p><strong>Client: </strong><img class="rounded-circle account-img me-1" style="height: 25px" src="{{ order.client.profile.photo.url }}">{{ order.client.username }}<br/></p>
+{% if order.client == user %}
+<div>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'userorders_update' order.pk %}">Update</a>
+</div>
+{% endif %}
   <h3>Lines</h3>
   <table class="table table-hover">
     <thead>

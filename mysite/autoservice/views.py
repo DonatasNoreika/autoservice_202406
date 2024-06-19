@@ -7,7 +7,7 @@ from django.views.generic import (ListView,
                                   DeleteView)
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.contrib.auth import password_validation
@@ -175,3 +175,19 @@ class UserOrderCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.client = self.request.user
         return super().form_valid(form)
+
+
+class UserOrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Order
+    fields = ['car', 'deadline']
+    template_name = "order_form.html"
+
+    def get_success_url(self):
+        return reverse("order", kwargs={"pk": self.object.id})
+
+    def form_valid(self, form):
+        form.instance.client = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.get_object().client == self.request.user
