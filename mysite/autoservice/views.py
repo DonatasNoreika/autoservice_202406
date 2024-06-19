@@ -226,3 +226,31 @@ class UserOrderLineCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateVie
         current_order = Order.objects.get(pk=self.kwargs['order_pk'])
         return current_order.client == self.request.user
 
+class UserOrderLineUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = OrderLine
+    fields = ['service', 'qty']
+    template_name = 'user_orderline_form.html'
+
+    def get_success_url(self):
+        return reverse("order", kwargs={"pk": self.kwargs['order_pk']})
+
+    def form_valid(self, form):
+        form.instance.order = Order.objects.get(pk=self.kwargs['order_pk'])
+        return super().form_valid(form)
+
+    def test_func(self):
+        current_order = Order.objects.get(pk=self.kwargs['order_pk'])
+        return current_order.client == self.request.user
+
+
+class UserOrderLineDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = OrderLine
+    context_object_name = 'orderline'
+    template_name = 'user_orderline_delete.html'
+
+    def get_success_url(self):
+        return reverse("order", kwargs={"pk": self.kwargs['order_pk']})
+
+    def test_func(self):
+        current_order = Order.objects.get(pk=self.kwargs['order_pk'])
+        return current_order.client == self.request.user

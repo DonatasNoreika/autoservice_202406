@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block "title" %}Order Line Delete{% endblock%}
+{% block "title2" %}Order Line Delete{% endblock%}
+{% block "content" %}
+<div class="content-section">
+    <form method="POST">
+        {% load crispy_forms_tags %}
+        {% csrf_token %}
+        <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Order Delete</legend>
+            <h2>Want delete "{{ orderline }}"?</h2>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit">YES</button>
+            <a class="btn btn-outline-secondary" href="{% url 'order' orderline.order.pk %}">NO</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
