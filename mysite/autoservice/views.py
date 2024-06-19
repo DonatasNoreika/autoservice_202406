@@ -13,7 +13,10 @@ from django.contrib import messages
 from django.contrib.auth import password_validation
 from django.contrib.auth.forms import User
 from django.views.generic.edit import FormMixin
-from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm
+from .forms import (OrderCommentForm,
+                    UserUpdateForm,
+                    ProfileUpdateForm,
+                    UserOrderCreateUpdateForm)
 from django.contrib.auth.decorators import login_required
 
 
@@ -168,9 +171,10 @@ class OrderDetailView(FormMixin, DetailView):
 
 class UserOrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
-    fields = ['car', 'deadline']
     template_name = "order_form.html"
     success_url = "/autoservice/userorders/"
+    form_class = UserOrderCreateUpdateForm
+    # fields = ['car', 'deadline']
 
     def form_valid(self, form):
         form.instance.client = self.request.user
@@ -179,8 +183,9 @@ class UserOrderCreateView(LoginRequiredMixin, CreateView):
 
 class UserOrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Order
-    fields = ['car', 'deadline']
     template_name = "order_form.html"
+    form_class = UserOrderCreateUpdateForm
+    # fields = ['car', 'deadline']
 
     def get_success_url(self):
         return reverse("order", kwargs={"pk": self.object.id})
