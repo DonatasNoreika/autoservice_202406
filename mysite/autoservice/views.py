@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, reverse
 from .models import Service, Order, Car
 from django.views.generic import (ListView,
-                                  DetailView)
+                                  DetailView,
+                                  CreateView,
+                                  UpdateView,
+                                  DeleteView)
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,6 +15,7 @@ from django.contrib.auth.forms import User
 from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -47,37 +51,6 @@ def car(request, car_id):
     return render(request, "car.html", context=context)
 
 
-class OrderListView(ListView):
-    model = Order
-    template_name = "orders.html"
-    context_object_name = "orders"
-    paginate_by = 5
-
-
-class OrderDetailView(FormMixin, DetailView):
-    model = Order
-    template_name = "order.html"
-    context_object_name = "order"
-    form_class = OrderCommentForm
-
-    def get_success_url(self):
-        return reverse("order", kwargs={"pk": self.object.id})
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
-    def form_valid(self, form):
-        form.instance.order = self.object
-        form.instance.author = self.request.user
-        form.save()
-        return super().form_valid(form)
-
-
 def search(request):
     query = request.GET.get('query')
     cars = Car.objects.filter(Q(client_name__icontains=query) | Q(car_model__make__icontains=query) | Q(
@@ -87,15 +60,6 @@ def search(request):
         "query": query,
     }
     return render(request, template_name='search.html', context=context)
-
-
-class UserOrderListView(LoginRequiredMixin, ListView):
-    model = Order
-    template_name = "user_orders.html"
-    context_object_name = "orders"
-
-    def get_queryset(self):
-        return Order.objects.filter(client=self.request.user)
 
 
 @csrf_protect
@@ -153,7 +117,6 @@ def profile(request):
             messages.success(request, f"Profile updated")
             return redirect('profile')
 
-
     u_form = UserUpdateForm(instance=request.user)
     p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
@@ -161,3 +124,54 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, "profile.html", context=context)
+
+
+class OrderListView(ListView):
+    model = Order
+    template_name = "orders.html"
+    context_object_name = "orders"
+    paginate_by = 5
+
+
+class UserOrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = "user_orders.html"
+    context_object_name = "orders"
+
+    def get_queryset(self):
+        return Order.objects.filter(client=self.request.user)
+
+
+class OrderDetailView(FormMixin, DetailView):
+    model = Order
+    template_name = "order.html"
+    context_object_name = "order"
+    form_class = OrderCommentForm
+
+    def get_success_url(self):
+        return reverse("order", kwargs={"pk": self.object.id})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.instance.order = self.object
+        form.instance.author = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+
+class UserOrderCreateView(LoginRequiredMixin, CreateView):
+    model = Order
+    fields = ['car', 'deadline']
+    template_name = "order_form.html"
+    success_url = "/autoservice/userorders/"
+
+    def form_valid(self, form):
+        form.instance.client = self.request.user
+        return super().form_valid(form)

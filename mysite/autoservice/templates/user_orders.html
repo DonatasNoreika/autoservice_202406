@@ -5,6 +5,7 @@
 {% block "title2" %}My Orders{% endblock %}
 
 {% block "content" %}
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'userorders_new' %}">New Order</a>
 {% for order in orders %}
 <p><a href="{% url 'order' order.pk %}" class="{% if order.is_overdue %}text-danger{% endif %}">{{ order }}</a></p>
 {% endfor %}
