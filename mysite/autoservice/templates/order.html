@@ -16,6 +16,9 @@
     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'userorders_update' order.pk %}">Update</a>
     <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'userorders_delete' order.pk %}">Delete</a>
 </div>
+<div>
+    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'userorderline_new' order.pk %}">New Line</a>
+</div>
 {% endif %}
   <h3>Lines</h3>
   <table class="table table-hover">

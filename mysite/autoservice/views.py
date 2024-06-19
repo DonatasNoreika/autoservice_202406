@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, reverse
-from .models import Service, Order, Car
+from .models import (Service,
+                     Order,
+                     Car,
+                     OrderLine)
 from django.views.generic import (ListView,
                                   DetailView,
                                   CreateView,
@@ -205,3 +208,21 @@ class UserOrderDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.get_object().client == self.request.user
+
+
+class UserOrderLineCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = OrderLine
+    fields = ['service', 'qty']
+    template_name = 'user_orderline_form.html'
+
+    def get_success_url(self):
+        return reverse("order", kwargs={"pk": self.kwargs['order_pk']})
+
+    def form_valid(self, form):
+        form.instance.order = Order.objects.get(pk=self.kwargs['order_pk'])
+        return super().form_valid(form)
+
+    def test_func(self):
+        current_order = Order.objects.get(pk=self.kwargs['order_pk'])
+        return current_order.client == self.request.user
+
