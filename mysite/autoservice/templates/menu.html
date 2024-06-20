@@ -1,0 +1,51 @@
+{% load i18n %}
+<nav id="navmenu" class="navmenu">
+    <ul>
+        <li><a href="{% url 'index' %}">{% trans 'Home' %}</a></li>
+        <li><a href="{% url 'cars' %}">{% trans 'Cars' %}</a></li>
+        <li><a href="{% url 'orders' %}">{% trans 'Orders' %}</a></li>
+        <li>
+            <a>
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}"/>
+                    <select name="language" onchange="this.form.submit()">
+                        {% load static %}
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for lang in LANGUAGES %}
+                        <option style="background-image: url({% static 'img/lt.png' %});" value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected" {% endif %}>
+                            {{ lang.1 }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </a>
+        </li>
+        <li>
+            {% if user.is_authenticated %}
+        <li><a href="{% url 'user_orders' %}">My Orders</a></li>
+        <a class="d-flex justify-content-start" href="{% url 'profile' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/>
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            </svg>
+            <span class="ms-2">{{ user.get_username }}</span>
+        </a>
+        </li>
+        <li class="nav-item">
+            <a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="nav-link" type="submit">{% trans 'Logout' %}</button>
+                </form>
+            </a>
+        </li>
+        {% else %}
+        <li><a href="{% url 'register' %}">{% trans 'Register' %}</a></li>
+        <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+        {% endif %}
+    </ul>
+    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+</nav>

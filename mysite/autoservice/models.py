@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from tinymce.models import HTMLField
 from PIL import Image
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class Service(models.Model):
@@ -30,20 +31,20 @@ class CarModel(models.Model):
 
 
 class Car(models.Model):
-    license_plate = models.CharField(verbose_name="License Plate", max_length=10)
-    vin_code = models.CharField(verbose_name="VIN code", max_length=20)
-    client_name = models.CharField(verbose_name="Client name", max_length=50)
-    car_model = models.ForeignKey(to="CarModel", verbose_name="Car Model", on_delete=models.SET_NULL, null=True,
+    license_plate = models.CharField(verbose_name=_("License Plate"), max_length=10)
+    vin_code = models.CharField(verbose_name=_("VIN code"), max_length=20)
+    client_name = models.CharField(verbose_name=_("Client name"), max_length=50)
+    car_model = models.ForeignKey(to="CarModel", verbose_name=_("Car Model"), on_delete=models.SET_NULL, null=True,
                                   blank=True)
-    photo = models.ImageField(verbose_name="Photo", upload_to="cars", blank=True)
-    description = HTMLField(verbose_name="Description", default="")
+    photo = models.ImageField(verbose_name=_("Photo"), upload_to="cars", blank=True)
+    description = HTMLField(verbose_name=_("Description"), default="")
 
     def __str__(self):
         return f"{self.license_plate} ({self.car_model})"
 
     class Meta:
-        verbose_name = "Car"
-        verbose_name_plural = "Cars"
+        verbose_name = _("Car")
+        verbose_name_plural = _("Cars")
 
 
 class Order(models.Model):

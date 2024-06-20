@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block "title" %}Home{% endblock %}
+{% block "title" %}{% trans "Home" %}{% endblock %}
 
-{% block "title2" %}Home{% endblock %}
+{% block "title2" %}{% trans "Home" %}{% endblock %}
 
 {% block "content" %}
 <ul>
-    <li><strong>Services: </strong>{{ services }}</li>
-    <li><strong>Orders done: </strong>{{ orders }}</li>
-    <li><strong>Cars registered: </strong>{{ cars }}</li>
+    <li><strong>{% trans "Services:" %} </strong>{{ services }}</li>
+    <li><strong>{% trans "Orders done:" %} </strong>{{ orders }}</li>
+    <li><strong>{% trans "Cars registered:" %} </strong>{{ cars }}</li>
 </ul>
-<p>Your visits: {{ num_visits }}.</p>
+<p>{% blocktrans %}Your visits: {{ num_visits }}.{% endblocktrans %}</p>
 {% endblock %}

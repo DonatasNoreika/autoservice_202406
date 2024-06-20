@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-20 08:35+0300\n"
+"PO-Revision-Date: 2024-06-20 08:36+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && (n%100<11 || n%100>19) ? 0 : "
+"n%10>=2 && n%10<=9 && (n%100<11 || n%100>19) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: .\models.py:34
+msgid "License Plate"
+msgstr "Valstybinis numeris"
+
+#: .\models.py:35
+msgid "VIN code"
+msgstr "VIN kodas"
+
+#: .\models.py:36
+msgid "Client name"
+msgstr "Kliento vardas"
+
+#: .\models.py:37
+msgid "Car Model"
+msgstr "Automobilio modelis"
+
+#: .\models.py:39
+msgid "Photo"
+msgstr "Nuotrauka"
+
+#: .\models.py:40
+msgid "Description"
+msgstr "Aprašymas"
+
+#: .\models.py:46 .\templates\car.html:3 .\templates\car.html:5
+msgid "Car"
+msgstr "Automobilis"
+
+#: .\models.py:47 .\templates\cars.html:3 .\templates\cars.html:5
+#: .\templates\menu.html:5
+msgid "Cars"
+msgstr "Automobiliai"
+
+#: .\templates\base.html:102
+msgid "Search"
+msgstr "Ieškoti"
+
+#: .\templates\car.html:11
+msgid "Client:"
+msgstr "Klientas:"
+
+#: .\templates\car.html:12
+msgid "VIN code:"
+msgstr "VIN kodas:"
+
+#: .\templates\car.html:13
+msgid "License Plate:"
+msgstr "Valstybinis numeris:"
+
+#: .\templates\car.html:15
+msgid "Orders:"
+msgstr "Taisymai:"
+
+#: .\templates\index.html:4 .\templates\index.html:6 .\templates\menu.html:4
+msgid "Home"
+msgstr "Pradžia"
+
+#: .\templates\index.html:10
+msgid "Services:"
+msgstr "Paslaugos:"
+
+#: .\templates\index.html:11
+msgid "Orders done:"
+msgstr "Atlikti taisymai:"
+
+#: .\templates\index.html:12
+msgid "Cars registered:"
+msgstr "Registruota automobilių:"
+
+#: .\templates\index.html:14
+#, python-format
+msgid "Your visits: %(num_visits)s."
+msgstr "Čia jūs lankotes %(num_visits)s-ą kartą."
+
+#: .\templates\menu.html:6
+msgid "Orders"
+msgstr "Taisymai"
+
+#: .\templates\menu.html:41
+msgid "Logout"
+msgstr "Atsijungti"
+
+#: .\templates\menu.html:46
+msgid "Register"
+msgstr "Registruotis"
+
+#: .\templates\menu.html:47
+msgid "Login"
+msgstr "Prisijungti"

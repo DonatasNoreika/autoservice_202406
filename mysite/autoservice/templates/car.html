@@ -1,18 +1,18 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% block "title" %}{% trans "Car" %}{% endblock %}
 
-{% block "title" %}Car{% endblock %}
-
-{% block "title2" %}Car {{ car.car_model }}{% endblock %}
+{% block "title2" %}{% trans "Car" %} "{{ car.car_model }}"{% endblock %}
 
 {% block "content" %}
 {% if car.photo %}
 <img class="card-img-top" style="width:60%" src="{{ car.photo.url }}" >
 {% endif %}
-<p><strong>Client: </strong>{{ car.client_name }}</p>
-<p><strong>VIN code: </strong>{{ car.vin_code }}</p>
-<p><strong>License Plate: </strong>{{ car.license_plate }}</p>
+<p><strong>{% trans "Client:" %} </strong>{{ car.client_name }}</p>
+<p><strong>{% trans "VIN code:" %} </strong>{{ car.vin_code }}</p>
+<p><strong>{% trans "License Plate:" %} </strong>{{ car.license_plate }}</p>
 <p>{{ car.description|safe }}</p>
-<h3>Orders:</h3>
+<h3>{% trans "Orders:" %}</h3>
 {% for order in car.orders.all %}
 <p><a href="{% url 'order' order.pk %}">{{ order }}</a></p>
 {% endfor %}
